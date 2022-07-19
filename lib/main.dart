@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'ATC MAP',
+      title: 'Food Ordering System',
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),

@@ -39,6 +39,9 @@ dependencies:
   go_router: ^4.1.0
   google_fonts: ^3.0.1
   gradient_ui_widgets: ^1.0.2-nullsafety
+  firebase_storage: ^10.3.2
+  image_picker: ^0.8.5+3
+  app_popup_menu: ^1.0.0
 
 dev_dependencies:
   flutter_test:

@@ -32,7 +32,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           alignment: Alignment.center,
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [Colors.green.shade400, Colors.green.shade700])),
+                  colors: [Colors.purple.shade400, Colors.purple.shade700])),
           child: SingleChildScrollView(
             child: Form(
               key: formKey,
@@ -41,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 30,
                   ),
-                  Text("Arusha Technical College".toUpperCase(),
+                  Text("Food Ordering System".toUpperCase(),
                       textAlign: TextAlign.center,
                       style: GoogleFonts.raleway(
                           textStyle:
@@ -50,17 +50,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     color: Colors.white,
                                     fontWeight: FontWeight.w900,
                                   ))),
-                  Text(
-                    '"Skills makes the difference"',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.raleway(
-                        textStyle:
-                            Theme.of(context).textTheme.headline3!.copyWith(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w500,
-                                )),
-                  ),
                   SizedBox(height: 20),
                   Text(
                     'Create an Account',
@@ -250,8 +239,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               borderRadius: BorderRadius.circular(100)
                                   .copyWith(bottomRight: Radius.circular(0)),
                               gradient: LinearGradient(colors: [
-                                Colors.green.shade900,
-                                Colors.green.shade700
+                                Colors.purple.shade900,
+                                Colors.purple.shade700
                               ]))
                           : BoxDecoration(
                               color: Colors.grey.shade200.withOpacity(0.4)),
