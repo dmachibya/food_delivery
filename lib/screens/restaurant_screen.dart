@@ -171,16 +171,24 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                       padding: EdgeInsets.symmetric(
                                           vertical: 6, horizontal: 12),
                                       child: Row(children: [
-                                        ClipRRect(
-                                          child: item
-                                                  .data()
-                                                  .toString()
-                                                  .contains('img1')
-                                              ? Image.network(item.get('img1'))
-                                              : Image.asset('images/cover.jpg'),
-                                          borderRadius:
-                                              BorderRadius.circular(100),
+                                        Container(
+                                          width: 40,
+                                          height: 40,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: item
+                                                    .data()
+                                                    .toString()
+                                                    .contains('img1')
+                                                ? Image.network(
+                                                    item.get('img1'),
+                                                    fit: BoxFit.cover)
+                                                : Image.asset(
+                                                    'images/cover.jpg'),
+                                          ),
                                         ),
+                                        SizedBox(width: 8),
                                         Text(item
                                                 .data()
                                                 .toString()
@@ -213,7 +221,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                             } else if (value == 3) {
                                               print("here inside");
                                               db
-                                                  .collection("products")
+                                                  .collection("foods")
                                                   .doc(item.id)
                                                   .delete();
                                             }

@@ -317,9 +317,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                         }).then((documentReference) {
                                           // print("success");
                                           // return true;
-                                          setState(() {
-                                            submitted = false;
-                                          });
+
                                           // if (img1Name == "" &&
                                           //     img2Name == "" &&
                                           //     img3Name == "") {
@@ -328,13 +326,16 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                           // }
                                           uploadFiles(widget.item.id)
                                               .then((value) {
-                                            // GoRouter.of(context)
-                                            //     .go(productRouteFull);
+                                            setState(() {
+                                              submitted = false;
+                                            });
+                                            GoRouter.of(context)
+                                                .go("/restaurant");
                                             // Navigator.of(context).push()
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(SnackBar(
                                                     content: const Text(
-                                                        "compoletd successfully")));
+                                                        "completeted successfully")));
                                           });
                                           // print(documentReference!.documentID);
                                           // clearForm();
