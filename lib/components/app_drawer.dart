@@ -215,11 +215,11 @@ class _CustomHomeDrawerState extends State<CustomHomeDrawer> {
               //     MaterialPageRoute(builder: (context) => ShoppingCartView(main: false)));
             },
             leading: const Icon(
-              Icons.notes,
+              Icons.shopping_cart,
               color: Colors.grey,
             ),
             title: Text(
-              'My Orders',
+              'Cart',
               style: Theme.of(context)
                   .textTheme
                   .headline6!
@@ -229,16 +229,16 @@ class _CustomHomeDrawerState extends State<CustomHomeDrawer> {
           ListTile(
             onTap: () {
               Navigator.pop(context);
-              GoRouter.of(context).go("/home/cart/2");
+              GoRouter.of(context).go("/restaurant");
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => ShoppingCartView(main: false)));
             },
             leading: const Icon(
-              Icons.notes,
+              Icons.storefront_rounded,
               color: Colors.grey,
             ),
             title: Text(
-              'Machinga Orders',
+              'Your Restaurant',
               style: Theme.of(context)
                   .textTheme
                   .headline6!
@@ -252,30 +252,11 @@ class _CustomHomeDrawerState extends State<CustomHomeDrawer> {
                   MaterialPageRoute(builder: (context) => Container()));
             },
             leading: const Icon(
-              Icons.notes,
+              Icons.payments,
               color: Colors.grey,
             ),
             title: Text(
-              'Machinga Settings',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Colors.grey),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (BuildContext context) => Container()));
-            },
-            leading: const Icon(
-              Icons.notes,
-              color: Colors.grey,
-            ),
-            title: Text(
-              'My Products',
+              'Your purchases',
               style: Theme.of(context)
                   .textTheme
                   .headline6!

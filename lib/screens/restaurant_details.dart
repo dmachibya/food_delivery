@@ -41,7 +41,7 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Store Details")),
+      appBar: AppBar(title: Text("Restaurant Details")),
       body: Container(
         child: FutureBuilder(
             future: futureStore(),
@@ -57,8 +57,8 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
               // print(data['email']);
               // print(snapshot.data['email']);
               // print(snapshot.data['email']);
-              storeLocationController.text = data['store_location'];
-              storeNameController.text = data['store_name'];
+              storeLocationController.text = data['restaurant_location'];
+              storeNameController.text = data['restaurant_name'];
               return Form(
                 key: _key,
                 child: Container(
@@ -101,9 +101,9 @@ class _RestaurantDetailsState extends State<RestaurantDetails> {
                                     .collection("users")
                                     .doc(AuthHelper().user!.uid)
                                     .update({
-                                  'store_location':
+                                  'restaurant_location':
                                       storeLocationController.text,
-                                  'store_name': storeNameController.text
+                                  'restaurant_name': storeNameController.text
                                 }).then((value) => {
                                           setState(() => {isEditable = false})
                                         });

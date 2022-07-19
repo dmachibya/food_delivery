@@ -26,6 +26,8 @@ class AuthHelper {
         "name": name,
         "uid": currentUser.uid,
         "email": email,
+        "restaurant_name": "",
+        "restaurant_location": "",
         "photo":
             "https://firebasestorage.googleapis.com/v0/b/food-ordering-dc63a.appspot.com/o/avatar2.png?alt=media&token=cd956976-8961-456d-bf06-f104345ed5b9",
         "role": 0,

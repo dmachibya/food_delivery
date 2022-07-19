@@ -30,7 +30,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
   TextEditingController productDescriptionController = TextEditingController();
 
   final CollectionReference _products =
-      FirebaseFirestore.instance.collection('products');
+      FirebaseFirestore.instance.collection('foods');
 
   final db = FirebaseFirestore.instance;
 
@@ -146,10 +146,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
 
         await uploadTask.whenComplete(() {
           ref.getDownloadURL().then((value) {
-            db
-                .collection("products")
-                .doc(doc)
-                .update({"img1": value.toString()});
+            db.collection("foods").doc(doc).update({"img1": value.toString()});
           });
         });
         // url = dowurl.toString();
@@ -192,10 +189,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     width = size.width;
 
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          title: Text("New Product")),
+      appBar: AppBar(title: Text("New Menu")),
       body: Builder(builder: (context) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: width * paddingRatio),
@@ -217,11 +211,11 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                               keyboardType: TextInputType.text,
                               controller: productNameController,
                               validator: (value) => value!.isEmpty
-                                  ? 'Please enter product name '
+                                  ? 'Please enter food name '
                                   : null,
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  label: Text("Product Name")),
+                                  label: Text("Food Name")),
                             ),
                           )
                         ],
@@ -230,51 +224,6 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                      Container(
-                          child: Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              textAlign: TextAlign.start,
-                              maxLines: 4,
-                              textAlignVertical: TextAlignVertical.top,
-                              keyboardType: TextInputType.text,
-                              controller: productDescriptionController,
-                              validator: (value) => value!.isEmpty
-                                  ? 'Please enter product description '
-                                  : null,
-                              decoration: InputDecoration(
-                                  prefixIcon:
-                                      Icon(Icons.segment, color: Colors.grey),
-                                  border: OutlineInputBorder(),
-                                  label: Text("Description",
-                                      textAlign: TextAlign.start)),
-                            ),
-                          )
-                        ],
-                      )),
-                      Divider(),
-                      Divider(),
-                      Container(
-                          child: Row(
-                        children: [
-                          Icon(Icons.inventory_2, color: Colors.grey),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              controller: quantityController,
-                              validator: (value) => value!.isEmpty
-                                  ? 'Please enter quantity '
-                                  : null,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  label: Text("Quantity")),
-                            ),
-                          )
-                        ],
-                      )),
-                      Divider(),
                       Container(
                           child: Row(
                         children: [
@@ -296,7 +245,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                       Divider(),
                       SizedBox(height: 20),
                       Text(
-                        "Pictures",
+                        "Picture",
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       SizedBox(height: 8),
@@ -334,68 +283,6 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                       : Icon(Icons.photo_camera),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              imgFromGallery(2);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(right: 12),
-                              width: 80,
-                              height: 80,
-                              decoration:
-                                  BoxDecoration(color: Colors.grey.shade300),
-                              child: isImg2
-                                  ? Image.file(
-                                      img2!,
-                                      width: 80,
-                                      height: 80,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : isEditing
-                                      ? widget.item.get('img2') != ""
-                                          ? Image.network(
-                                              widget.item.get('img2'),
-                                              width: 80,
-                                              height: 80,
-                                              fit: BoxFit.cover,
-                                            )
-                                          : Icon(
-                                              Icons.photo_camera,
-                                            )
-                                      : Icon(Icons.photo_camera),
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              imgFromGallery(3);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(right: 12),
-                              width: 80,
-                              height: 80,
-                              decoration:
-                                  BoxDecoration(color: Colors.grey.shade300),
-                              child: isImg3
-                                  ? Image.file(
-                                      img3!,
-                                      width: 80,
-                                      height: 80,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : isEditing
-                                      ? widget.item.get('img3') != ""
-                                          ? Image.network(
-                                              widget.item.get('img3'),
-                                              width: 80,
-                                              height: 80,
-                                              fit: BoxFit.cover,
-                                            )
-                                          : Icon(
-                                              Icons.photo_camera,
-                                            )
-                                      : Icon(Icons.photo_camera),
-                            ),
-                          ),
                         ],
                       )),
                       SizedBox(
@@ -405,10 +292,10 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                           ? ElevatedButton(
                               onPressed: !submitted
                                   ? () async {
-                                      setState(() {
-                                        submitted = true;
-                                      });
                                       if (formKey.currentState!.validate()) {
+                                        setState(() {
+                                          submitted = true;
+                                        });
                                         // _is_loading ? null : _executeLogin();
                                         await _products
                                             .doc(widget.item.id)
@@ -444,11 +331,10 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                             // GoRouter.of(context)
                                             //     .go(productRouteFull);
                                             // Navigator.of(context).push()
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Container()));
-                                            print("success here");
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(SnackBar(
+                                                    content: const Text(
+                                                        "compoletd successfully")));
                                           });
                                           // print(documentReference!.documentID);
                                           // clearForm();
@@ -471,16 +357,16 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                 // enabled: isEditable,
                               ),
                               child: Text(
-                                "Update Product",
+                                "Update Menu",
                               ),
                             )
                           : ElevatedButton(
                               onPressed: !submitted
                                   ? () {
-                                      setState(() {
-                                        submitted = true;
-                                      });
                                       if (formKey.currentState!.validate()) {
+                                        setState(() {
+                                          submitted = true;
+                                        });
                                         // _is_loading ? null : _executeLogin();
                                         _products.add({
                                           "name": productNameController.text,
@@ -491,21 +377,21 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                           "img2": img2Name,
                                           "img3": img3Name,
                                           "price": priceController.text,
-                                          "uid": current_user['uid'],
-                                          "store": current_user['store_name'],
+                                          "uid": AuthHelper().user.uid,
+                                          "store":
+                                              current_user['restaurant_name'],
                                         }).then((documentReference) {
                                           // print("success");
                                           // return true;
-                                          setState(() {
-                                            submitted = false;
-                                          });
-                                          uploadFiles(documentReference!.id)
+
+                                          uploadFiles(documentReference.id)
                                               .then((value) {
-                                            print("print");
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Container()));
+                                            setState(() {
+                                              submitted = false;
+                                            });
+                                            // print("print");
+                                            GoRouter.of(context)
+                                                .go('/restaurant');
                                           });
                                           // print(documentReference!.documentID);
                                           // clearForm();
@@ -528,7 +414,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
                                 // enabled: isEditable,
                               ),
                               child: Text(
-                                "Add Product",
+                                "Add Menu",
                               ),
                             ),
                       SizedBox(height: 20),
