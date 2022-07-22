@@ -146,7 +146,7 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
 
         await uploadTask.whenComplete(() {
           ref.getDownloadURL().then((value) {
-            db.collection("foods").doc(doc).update({"img1": value.toString()});
+            db.collection("books").doc(doc).update({"img1": value.toString()});
           });
         });
         // url = dowurl.toString();

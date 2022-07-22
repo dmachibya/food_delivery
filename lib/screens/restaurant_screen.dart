@@ -131,7 +131,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                         Expanded(
                           child: StreamBuilder<QuerySnapshot>(
                             stream: db
-                                .collection("foods")
+                                .collection("books")
                                 .where('uid', isEqualTo: AuthHelper().user.uid)
                                 .snapshots(),
                             builder: (BuildContext context,
@@ -221,7 +221,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                             } else if (value == 3) {
                                               print("here inside");
                                               db
-                                                  .collection("foods")
+                                                  .collection("books")
                                                   .doc(item.id)
                                                   .delete();
                                             }

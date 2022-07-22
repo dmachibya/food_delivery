@@ -207,83 +207,83 @@ class _CustomHomeDrawerState extends State<CustomHomeDrawer> {
             height: 1,
             color: Colors.grey,
           ),
-          ListTile(
-            onTap: () {
-              Navigator.pop(context);
-              GoRouter.of(context).go("/home/cart/1");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => ShoppingCartView(main: false)));
-            },
-            leading: const Icon(
-              Icons.shopping_cart,
-              color: Colors.grey,
-            ),
-            title: Text(
-              'Cart',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Colors.grey),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.pop(context);
-              GoRouter.of(context).go("/restaurant");
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => ShoppingCartView(main: false)));
-            },
-            leading: const Icon(
-              Icons.storefront_rounded,
-              color: Colors.grey,
-            ),
-            title: Text(
-              'Your Restaurant',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Colors.grey),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Container()));
-            },
-            leading: const Icon(
-              Icons.payments,
-              color: Colors.grey,
-            ),
-            title: Text(
-              'Your purchases',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(color: Colors.grey),
-            ),
-          ),
-          AuthHelper().isAdmin
-              ? ListTile(
-                  onTap: () {
-                    Navigator.pop(context);
-                    GoRouter.of(context).go("/home/admin");
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => ShoppingCartView(main: false)));
-                  },
-                  leading: const Icon(
-                    Icons.notes,
-                    color: Colors.grey,
-                  ),
-                  title: Text(
-                    'Admin Panel',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(color: Colors.grey),
-                  ),
-                )
-              : Container(),
+          // ListTile(
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     GoRouter.of(context).go("/home/cart/1");
+          //     // Navigator.push(context,
+          //     //     MaterialPageRoute(builder: (context) => ShoppingCartView(main: false)));
+          //   },
+          //   leading: const Icon(
+          //     Icons.shopping_cart,
+          //     color: Colors.grey,
+          //   ),
+          //   title: Text(
+          //     'Cart',
+          //     style: Theme.of(context)
+          //         .textTheme
+          //         .headline6!
+          //         .copyWith(color: Colors.grey),
+          //   ),
+          // ),
+          // ListTile(
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     GoRouter.of(context).go("/restaurant");
+          //     // Navigator.push(context,
+          //     //     MaterialPageRoute(builder: (context) => ShoppingCartView(main: false)));
+          //   },
+          //   leading: const Icon(
+          //     Icons.storefront_rounded,
+          //     color: Colors.grey,
+          //   ),
+          //   title: Text(
+          //     'Your Restaurant',
+          //     style: Theme.of(context)
+          //         .textTheme
+          //         .headline6!
+          //         .copyWith(color: Colors.grey),
+          //   ),
+          // ),
+          // ListTile(
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => Container()));
+          //   },
+          //   leading: const Icon(
+          //     Icons.payments,
+          //     color: Colors.grey,
+          //   ),
+          //   title: Text(
+          //     'Your purchases',
+          //     style: Theme.of(context)
+          //         .textTheme
+          //         .headline6!
+          //         .copyWith(color: Colors.grey),
+          //   ),
+          // ),
+          // AuthHelper().isAdmin
+          //     ? ListTile(
+          //         onTap: () {
+          //           Navigator.pop(context);
+          //           GoRouter.of(context).go("/home/admin");
+          //           // Navigator.push(context,
+          //           //     MaterialPageRoute(builder: (context) => ShoppingCartView(main: false)));
+          //         },
+          //         leading: const Icon(
+          //           Icons.notes,
+          //           color: Colors.grey,
+          //         ),
+          //         title: Text(
+          //           'Admin Panel',
+          //           style: Theme.of(context)
+          //               .textTheme
+          //               .headline6!
+          //               .copyWith(color: Colors.grey),
+          //         ),
+          //       )
+          //     : Container(),
           ListTile(
             onTap: () {
               Navigator.of(context).pop();

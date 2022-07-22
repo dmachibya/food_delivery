@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Food Ordering System',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.amber,
       ),
       routerDelegate: RouterHelper.router.routerDelegate,
       routeInformationParser: RouterHelper.router.routeInformationParser,

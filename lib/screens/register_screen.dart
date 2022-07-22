@@ -1,293 +1,278 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 import '../utils/auth.dart';
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  RegisterScreen({Key? key}) : super(key: key);
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  bool isButtonPressed = false;
+
   bool isPasswordVisible = false;
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  bool isButtonPressed = false;
+  // bool isButtonPressed = false;
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  void click() {}
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
-                  colors: [Colors.purple.shade400, Colors.purple.shade700])),
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text("Food Ordering System".toUpperCase(),
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.raleway(
-                          textStyle:
-                              Theme.of(context).textTheme.headline3!.copyWith(
-                                    fontSize: 36,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w900,
-                                  ))),
-                  SizedBox(height: 20),
-                  Text(
-                    'Create an Account',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.raleway(
-                        textStyle:
-                            Theme.of(context).textTheme.headline3!.copyWith(
-                                  fontSize: 20,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                Colors.purpleAccent,
+                Colors.amber,
+                Colors.blue,
+              ])),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 50,
+              ),
+              Text(
+                "Audiobooks App",
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                width: 325,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const Text(
+                        "Hello",
+                        style: TextStyle(
+                            fontSize: 28, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        "Create an Account",
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        width: 260,
+                        height: 60,
+                        child: TextFormField(
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return "This should not be left blank";
+                            }
+                            return null;
+                          },
+                          controller: nameController,
+                          decoration: const InputDecoration(
+                              suffix: Icon(
+                                FontAwesomeIcons.user,
+                                color: Colors.red,
+                              ),
+                              labelText: "Fullname",
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                              )),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Container(
+                        width: 260,
+                        height: 60,
+                        child: TextFormField(
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return "This should not be left blank";
+                            }
+                            return null;
+                          },
+                          controller: emailController,
+                          decoration: const InputDecoration(
+                              suffix: Icon(
+                                FontAwesomeIcons.envelope,
+                                color: Colors.red,
+                              ),
+                              labelText: "Email Address",
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                              )),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Container(
+                        width: 260,
+                        height: 60,
+                        child: TextFormField(
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return "This should not be left blank";
+                            }
+                            return null;
+                          },
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                              suffix: Icon(
+                                FontAwesomeIcons.eyeSlash,
+                                color: Colors.red,
+                              ),
+                              labelText: "Password",
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8)),
+                              )),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 30, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            TextButton(
+                              onPressed: click,
+                              child: const Text(
+                                "Forget Password",
+                                style: TextStyle(color: Colors.deepOrange),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: !isButtonPressed
+                            ? () {
+                                if (formKey.currentState!.validate()) {
+                                  setState(() {
+                                    isButtonPressed = true;
+                                  });
+
+                                  AuthHelper()
+                                      .signUp(
+                                          name: nameController.text,
+                                          email: emailController.text
+                                              .replaceAll(" ", ""),
+                                          password: passwordController.text)
+                                      .then((value) {
+                                    setState(() {
+                                      isButtonPressed = false;
+                                    });
+                                    if (value == null) {
+                                      GoRouter.of(context).go("/");
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: Colors.red,
+                                        content: Text("${value.toString()}"),
+                                      ));
+                                    }
+                                  }).onError((error, stackTrace) {
+                                    setState(() {
+                                      isButtonPressed = false;
+                                    });
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      backgroundColor: Colors.red,
+                                      content: Text(
+                                          "There was an error-  ${error.toString()}"),
+                                    ));
+                                  });
+                                }
+                              }
+                            : null,
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: 250,
+                          decoration: !isButtonPressed
+                              ? const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      colors: [
+                                        Color(0xFF8A2387),
+                                        Color(0xFFE94057),
+                                        Color(0xFFF27121),
+                                      ]))
+                              : BoxDecoration(
+                                  color: Colors.grey.shade200.withOpacity(0.4)),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Text(
+                              'Register',
+                              style: TextStyle(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.w700,
-                                )),
-                  ),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30)
-                        .copyWith(bottom: 10),
-                    child: TextFormField(
-                      style: TextStyle(color: Colors.white, fontSize: 14.5),
-                      controller: nameController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please write your name";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                          prefixIconConstraints: BoxConstraints(minWidth: 45),
-                          prefixIcon: Icon(
-                            Icons.account_circle,
-                            color: Colors.white70,
-                            size: 22,
-                          ),
-                          border: InputBorder.none,
-                          hintText: 'Enter Name',
-                          hintStyle:
-                              TextStyle(color: Colors.white60, fontSize: 14.5),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100)
-                                  .copyWith(bottomRight: Radius.circular(0)),
-                              borderSide: BorderSide(color: Colors.white38)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100)
-                                  .copyWith(bottomRight: Radius.circular(0)),
-                              borderSide: BorderSide(color: Colors.white70))),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30)
-                        .copyWith(bottom: 10),
-                    child: TextFormField(
-                      style: TextStyle(color: Colors.white, fontSize: 14.5),
-                      controller: emailController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please write your email";
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                          prefixIconConstraints: BoxConstraints(minWidth: 45),
-                          prefixIcon: Icon(
-                            Icons.email,
-                            color: Colors.white70,
-                            size: 22,
-                          ),
-                          border: InputBorder.none,
-                          hintText: 'Enter Email',
-                          hintStyle:
-                              TextStyle(color: Colors.white60, fontSize: 14.5),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100)
-                                  .copyWith(bottomRight: Radius.circular(0)),
-                              borderSide: BorderSide(color: Colors.white38)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100)
-                                  .copyWith(bottomRight: Radius.circular(0)),
-                              borderSide: BorderSide(color: Colors.white70))),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30)
-                        .copyWith(bottom: 10),
-                    child: TextFormField(
-                      style: TextStyle(color: Colors.white, fontSize: 14.5),
-                      controller: passwordController,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Please write a password";
-                        }
-                        return null;
-                      },
-                      obscureText: isPasswordVisible ? false : true,
-                      decoration: InputDecoration(
-                          prefixIconConstraints: BoxConstraints(minWidth: 45),
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            color: Colors.white70,
-                            size: 22,
-                          ),
-                          suffixIconConstraints:
-                              BoxConstraints(minWidth: 45, maxWidth: 46),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                isPasswordVisible = !isPasswordVisible;
-                              });
-                            },
-                            child: Icon(
-                              isPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Colors.white70,
-                              size: 22,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
-                          border: InputBorder.none,
-                          hintText: 'Enter Password',
-                          hintStyle:
-                              TextStyle(color: Colors.white60, fontSize: 14.5),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100)
-                                  .copyWith(bottomRight: Radius.circular(0)),
-                              borderSide: BorderSide(color: Colors.white38)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100)
-                                  .copyWith(bottomRight: Radius.circular(0)),
-                              borderSide: BorderSide(color: Colors.white70))),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  GestureDetector(
-                    onTap: !isButtonPressed
-                        ? () {
-                            if (formKey.currentState!.validate()) {
-                              setState(() {
-                                isButtonPressed = true;
-                              });
-
-                              AuthHelper()
-                                  .signUp(
-                                      name: nameController.text,
-                                      email: emailController.text
-                                          .replaceAll(" ", ""),
-                                      password: passwordController.text)
-                                  .then((value) {
-                                setState(() {
-                                  isButtonPressed = false;
-                                });
-                                if (value == null) {
-                                  GoRouter.of(context).go("/");
-                                } else {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text("${value.toString()}"),
-                                  ));
-                                }
-                              }).onError((error, stackTrace) {
-                                setState(() {
-                                  isButtonPressed = false;
-                                });
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  backgroundColor: Colors.red,
-                                  content: Text(
-                                      "There was an error-  ${error.toString()}"),
-                                ));
-                              });
-                            }
-                          }
-                        : null,
-                    child: Container(
-                      height: 53,
-                      width: double.infinity,
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      alignment: Alignment.center,
-                      decoration: !isButtonPressed
-                          ? BoxDecoration(
-                              boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 4,
-                                      color: Colors.black12.withOpacity(.2),
-                                      offset: Offset(2, 2))
-                                ],
-                              borderRadius: BorderRadius.circular(100)
-                                  .copyWith(bottomRight: Radius.circular(0)),
-                              gradient: LinearGradient(colors: [
-                                Colors.purple.shade900,
-                                Colors.purple.shade700
-                              ]))
-                          : BoxDecoration(
-                              color: Colors.grey.shade200.withOpacity(0.4)),
-                      child: Text('Register',
-                          style: TextStyle(
-                              color: !isButtonPressed
-                                  ? Colors.white.withOpacity(.8)
-                                  : Colors.grey,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Text('Already have an account?',
-                      style: TextStyle(color: Colors.white70, fontSize: 13)),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      GoRouter.of(context).go("/login");
-                    },
-                    child: Container(
-                      height: 53,
-                      width: double.infinity,
-                      margin: EdgeInsets.symmetric(horizontal: 30),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white60),
-                        borderRadius: BorderRadius.circular(100)
-                            .copyWith(bottomRight: Radius.circular(0)),
+                        ),
                       ),
-                      child: Text('Login',
-                          style: TextStyle(
-                              color: Colors.white.withOpacity(.8),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold)),
-                    ),
+                      const SizedBox(
+                        height: 17,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 30, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                GoRouter.of(context).go('/login');
+                              },
+                              child: const Text(
+                                "Login Now",
+                                style: TextStyle(color: Colors.deepOrange),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  )
-                ],
-              ),
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),
