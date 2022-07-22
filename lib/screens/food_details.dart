@@ -1,5 +1,6 @@
 // import 'dart:io';
 
+import 'package:audio_manager/audio_manager.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -173,10 +174,12 @@ class _FoodDetailsState extends State<FoodDetails>
                     IconButton(
                       icon: Icon(Icons.skip_previous_outlined, size: 32),
                       onPressed: () {
-                        playCall(currentIndex - 1);
-                        setState(() {
-                          currentIndex -= 1;
-                        });
+                        if (currentIndex > -1) {
+                          playCall(currentIndex - 1);
+                          setState(() {
+                            currentIndex -= 1;
+                          });
+                        }
                       },
                     ),
                     !isPlaying
@@ -203,9 +206,12 @@ class _FoodDetailsState extends State<FoodDetails>
                       icon: Icon(Icons.skip_next_outlined, size: 32),
                       onPressed: () {
                         playCall(currentIndex + 1);
-                        setState(() {
-                          currentIndex += 1;
-                        });
+                        if (currentIndex < widget.item.get('chapters').length) {
+                          setState(() {
+                            currentIndex += 1;
+                            isPlaying = true;
+                          });
+                        }
                       },
                     ),
                   ],
@@ -217,8 +223,35 @@ class _FoodDetailsState extends State<FoodDetails>
   }
 
   void playCall(int index) async {
-    playController.reverse();
-    await player.play(UrlSource(widget.item.get('chapters')[index]['file']));
+    // playController.reverse();
+    // await player.play(UrlSource(widget.item.get('chapters')[index]['file']));
+    // Initial playback. Preloaded playback information
+    AudioManager.instance
+        .start(
+            widget.item.get('chapters')[index]['file'],
+            // "network format resource"
+            // "local resource (file://${file.path})"
+            widget.item.get('chapters')[index]['name'],
+            desc: "desc",
+            // cover: "network cover image resource"
+            cover: widget.item.get('cover'))
+        .then((err) {
+      print(err);
+    });
+
+    AudioManager.instance.onEvents((events, args) {
+      if (events.toString() == "AudioManagerEvents.playstatus" &&
+          args == false) {
+        setState(() {
+          currentIndex = 0;
+          isPlaying = false;
+        });
+      }
+      print("---event $events ---- args $args");
+    });
+
+// Play or pause; that is, pause if currently playing, otherwise play
+    AudioManager.instance.playOrPause();
     setState(() {
       currentIndex = index;
       isPlaying = true;
@@ -227,7 +260,8 @@ class _FoodDetailsState extends State<FoodDetails>
   }
 
   void pauseCall() async {
-    await player.pause();
+    // await player.pause();
+    AudioManager.instance.toPause();
     setState(() {
       isPlaying = false;
     });
@@ -236,7 +270,9 @@ class _FoodDetailsState extends State<FoodDetails>
   void stopCall() async {
     // await player.pause();
     // await player.seek(Duration(milliseconds: 0));
-    await player.stop();
+    // await player.stop();
+    AudioManager.instance.stop();
+
     setState(() {
       currentIndex = 0;
       isPlaying = false;
